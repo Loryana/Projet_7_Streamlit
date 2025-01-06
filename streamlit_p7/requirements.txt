@@ -4,3 +4,4 @@ requests
 mlflow
 imblearn
 shap
+boto3
