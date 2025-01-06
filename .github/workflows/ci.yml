@@ -1,0 +1,30 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout le code source
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Configurer Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      # 3. Installer les dépendances pour Streamlit
+      - name: Install dependencies for Streamlit
+        run: |
+          cd streamlit_p7
+          pip install -r requirements.txt
