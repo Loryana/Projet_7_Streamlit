@@ -12,6 +12,7 @@ import re
 import shap
 import requests
 import boto3
+from io import StringIO
 
 API_URL = "http://0.0.0.0:8000/predict/"
 
