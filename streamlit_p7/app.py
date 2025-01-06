@@ -16,8 +16,8 @@ from io import StringIO
 
 API_URL = "http://0.0.0.0:8000/predict/"
 
-BUCKET_NAME = "p7-csv"
-FILE_KEY = "df.csv"
+bucket_name = "p7-csv"
+file_key = "df.csv"
 s3_client = boto3.client('s3')
 
 
