@@ -12,7 +12,7 @@ import re
 import shap
 import requests
 
-API_URL = "http://127.0.0.1:8000/predict/"
+API_URL = "http://0.0.0.0:8000/predict/"
 
 
 st.set_page_config("Projet 7 OC", layout = "wide")
