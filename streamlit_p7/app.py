@@ -19,7 +19,7 @@ API_URL = "http://0.0.0.0:8000/predict/"
 BUCKET_NAME = "p7-csv"
 FILE_KEY = "df.csv"
 s3_client = boto3.client('s3')
-df = pd.read_csv(StringIO(csv_content))
+
 
 st.set_page_config("Projet 7 OC", layout = "wide")
 
@@ -27,6 +27,7 @@ st.set_page_config("Projet 7 OC", layout = "wide")
 def load_data():
     obj = s3_client.get_object(Bucket=bucket_name, Key=file_key)
     csv_content = obj['Body'].read().decode('utf-8')
+    df = pd.read_csv(StringIO(csv_content))
 
     df = df.rename(columns = lambda x:re.sub('[^A-Za-z0-9_]+', '', x))
 
