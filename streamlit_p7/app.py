@@ -16,18 +16,11 @@ from io import StringIO
 
 API_URL = "http://0.0.0.0:8000/predict/"
 
-bucket_name = "p7-csv"
-file_key = "df.csv"
-s3_client = boto3.client('s3')
-
-
 st.set_page_config("Projet 7 OC", layout = "wide")
 
 @st.cache_data(persist=True)
 def load_data():
-    obj = s3_client.get_object(Bucket=bucket_name, Key=file_key)
-    csv_content = obj['Body'].read().decode('utf-8')
-    df = pd.read_csv(StringIO(csv_content))
+    df = pd.read_csv('df.csv', index_col = 0)
 
     df = df.rename(columns = lambda x:re.sub('[^A-Za-z0-9_]+', '', x))
 
