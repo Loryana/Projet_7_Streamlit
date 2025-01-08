@@ -14,7 +14,7 @@ import requests
 import boto3
 from io import StringIO
 
-API_URL = "http://0.0.0.0:8000/predict/"
+API_URL = "http://16.171.30.61:8080//predict/"
 
 st.set_page_config("Projet 7 OC", layout = "wide")
 
