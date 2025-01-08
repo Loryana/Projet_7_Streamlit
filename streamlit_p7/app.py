@@ -11,7 +11,6 @@ from imblearn.over_sampling import SMOTE
 import re
 import shap
 import requests
-import boto3
 from io import StringIO
 
 API_URL = "http://16.171.30.61:8080//predict/"
