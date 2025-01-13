@@ -13,7 +13,7 @@ import shap
 import requests
 from io import StringIO
 
-API_URL = "http://16.171.30.61:8080//predict/"
+API_URL = "http://13.61.10.141:8080//predict/"
 
 st.set_page_config("Projet 7 OC", layout = "wide")
 
