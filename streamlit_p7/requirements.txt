@@ -5,3 +5,4 @@ mlflow
 imblearn
 shap
 boto3
+plotly
