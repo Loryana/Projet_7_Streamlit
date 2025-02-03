@@ -7,3 +7,4 @@ shap
 boto3
 plotly
 seaborn
+lightgbm
