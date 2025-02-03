@@ -6,3 +6,4 @@ imblearn
 shap
 boto3
 plotly
+seaborn
