@@ -8,3 +8,4 @@ boto3
 plotly
 seaborn
 lightgbm
+libgomp1
