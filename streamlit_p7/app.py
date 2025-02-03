@@ -25,7 +25,7 @@ API_URL = "http://13.61.10.141:8080//predict/"
 
 st.set_page_config("Projet 7 OC", layout = "wide")
 
-number_of_ind = 10000
+number_of_ind = 1000
 
 @st.cache_data(persist=True)
 def load_data():
