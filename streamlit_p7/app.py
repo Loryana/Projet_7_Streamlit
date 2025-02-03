@@ -20,8 +20,8 @@ from io import StringIO, BytesIO
 import streamlit.components.v1 as components
 
 
-#API_URL = "http://13.61.10.141:8080//predict/"
-API_URL = "http://127.0.0.1:8000//predict/"
+API_URL = "http://13.61.10.141:8080//predict/"
+#API_URL = "http://127.0.0.1:8000//predict/"
 
 st.set_page_config("Projet 7 OC", layout = "wide")
 
