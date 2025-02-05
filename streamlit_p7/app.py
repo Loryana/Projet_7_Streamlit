@@ -23,7 +23,7 @@ import streamlit.components.v1 as components
 API_URL = "http://13.61.10.141:8080//predict/"
 #API_URL = "http://127.0.0.1:8000//predict/"
 
-st.set_page_config("Projet 7 OC", layout = "wide")
+st.set_page_config("Dashboard de credit scoring - Projet 7 Data Scientist OpenClassrooms", layout = "wide")
 
 number_of_ind = 1000
 
@@ -109,7 +109,7 @@ if st.session_state.pred_clicked:
             #st.success(f"Résultat de la prédiction : Prêt refusé")
             a, b = st.columns(2)
             with a : 
-                st.success(f"Résultat de la prédiction : Prêt refusé")
+                st.write(f"Résultat de la prédiction : Prêt refusé")
             with b :
                 #Jauge
                 fig = go.Figure(go.Indicator(domain={'row': 0, 'column': 0},
@@ -126,27 +126,28 @@ if st.session_state.pred_clicked:
                 st.plotly_chart(fig, use_container_width=True)
                 #st.metric(label = " Score du client :", value = pourcentage, delta = seuil, delta_color = "inverse", border = True)
     with tab2 :
-            st.write(" Informations du client numéro : " + str(id_filter))
-            st.dataframe(X.iloc[id_filter, :])
+            a_bar, b_bar = st.columns(2)
+            with a_bar:
+                st.write(" Informations du client numéro : " + str(id_filter))
+                st.dataframe(X.iloc[id_filter, :])
 
-    with tab3 :
-
-        shap_values = explainer(X)
-        #st_shap(shap.summary_plot(shap_values, X, plot_size=[15,8]))
-        st_shap(shap.force_plot(explainer.expected_value, shap_values.values[1, :], X.iloc[id_filter, :]))
-        #st_shap(shap.force_plot(explainer.expected_value, shap_values.values[:number_of_ind, :], X.iloc[:number_of_ind, :]), height=400)
-
-        list_feature_names = df.columns.to_list()
-        shap.initjs()
-        
-        fig, ax = plt.subplots(figsize=(10, 10))
-        shap.summary_plot(shap_values, features=X, feature_names=list_feature_names)
-            
-        buf = BytesIO()
-        fig.savefig(buf, format="png")
-        st.image(buf,  width=500)
+            with b_bar:
+                list_feature_names = X.columns.to_list()
+                feat_select_plot_bar = st.selectbox(
+                            "Sélectionnez une variable :", 
+                            list_feature_names, 
+                            )
+                
+                fig, ax = plt.subplots(figsize=(5, 5))
+                sns.histplot(X[feat_select_plot_bar], bins=30, kde=True, color='skyblue', edgecolor='black', ax=ax)
+                ax.axvline(X[feat_select_plot_bar].iloc[id_filter], color='red', linestyle='dashed', linewidth=2, label=f'Valeur pour le client {id_filter}')
+                ax.set_title(f"Distribution de la variable {feat_select_plot_bar}")
+                ax.set_xlabel("")
+                ax.set_ylabel("Fréquence")
+                ax.legend(loc='upper right')
+                st.pyplot(fig)
     
-    with tab4 :
+    with tab3 :
         
         list_feature_names = X.columns.to_list()
 
@@ -171,6 +172,7 @@ if st.session_state.pred_clicked:
             y=[X[feat_select_plot2].iloc[id_filter]],
             mode="markers",
             marker_symbol = 'diamond',
+            marker=dict(color="salmon", size=12),
             name="Client",
             ))
         fig.update_layout(
@@ -181,3 +183,37 @@ if st.session_state.pred_clicked:
         )
 
         st.plotly_chart(fig, use_container_width=True)
+
+
+    with tab4 :
+        
+        shap_values = explainer(X)
+        #st_shap(shap.summary_plot(shap_values, X, plot_size=[15,8]))
+
+        force_plot_html = shap.force_plot(
+            base_value=explainer.expected_value, 
+            shap_values=shap_values.values[id_filter, :], 
+            features=X.iloc[id_filter, :],
+            matplotlib=False,
+            )
+
+        html_code = f"<head>{shap.getjs()}</head><body>{force_plot_html.html()}</body>"
+        components.html(html_code, height=400)
+        #st.dataframe(X.iloc[id_filter, :])
+        #st_shap(shap.force_plot(explainer.expected_value, shap_values.values[:number_of_ind, :], X.iloc[:number_of_ind, :]), height=400)
+
+        list_feature_names = df.columns.to_list()
+
+        a_shap, b_shap = st.columns(2)
+        with a_shap:
+        #shap.initjs()
+        
+            fig, ax = plt.subplots(figsize=(10, 10))
+            shap.summary_plot(shap_values, features=X, feature_names=X.columns)
+
+            st.pyplot(fig)
+        
+        
+
+               
+
