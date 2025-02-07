@@ -59,7 +59,7 @@ with st.sidebar:
     st.subheader('Réponse à la demande de crédit')
     
     # Sélection du client
-    id_filter = st.number_input("Sélectionnez l'identifiant de la personne :",value = 0 )
+    id_filter = st.number_input("Sélectionnez l'identifiant du client :",value = 0 )
 
     st.divider()
     
@@ -81,7 +81,7 @@ if st.session_state.pred_clicked:
     seuil = str(((0.38)*100))
     pourcentage = round(((prediction[0])*100),2)
 
-    tab1, tab2, tab3, tab4 = st.tabs(["Résultats", "Informations clients", "Features", "Analyse bivariée"])
+    tab1, tab2, tab3, tab4 = st.tabs(["Résultats", "Informations clients", "Analyse bivariée", "Features"])
     with tab1 :
         if pred:
             st.balloons()
