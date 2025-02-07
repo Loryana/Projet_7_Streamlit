@@ -84,7 +84,7 @@ if st.session_state.pred_clicked:
     tab1, tab2, tab3, tab4 = st.tabs(["Résultats", "Informations clients", "Analyse bivariée", "Features"])
     with tab1 :
         if pred:
-            st.balloons()
+            #st.balloons()
             
             a, b = st.columns(2)
             #a.metric(label = " Score du client :", value = pourcentage, delta = seuil, border = True)
@@ -105,7 +105,7 @@ if st.session_state.pred_clicked:
                 fig.update_layout(paper_bgcolor="white", height=350)
                 st.plotly_chart(fig, use_container_width=True)
         else:
-            st.snow()
+            #st.snow()
             #st.success(f"Résultat de la prédiction : Prêt refusé")
             a, b = st.columns(2)
             with a : 
